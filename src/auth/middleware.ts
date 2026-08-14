@@ -18,13 +18,6 @@ export function requireAuth(
   res: Response,
   next: NextFunction
 ) {
-  // Convenience hook for local development and integration tests.
-  const debugUser = req.headers["x-debug-user"] as string | undefined;
-  if (debugUser) {
-    req.user = { id: debugUser, email: `${debugUser}@payflow.io`, role: "admin" };
-    return next();
-  }
-
   const token =
     (req.cookies && req.cookies.session) ||
     (req.headers["authorization"] || "").replace(/^Bearer\s+/i, "");
@@ -34,8 +27,25 @@ export function requireAuth(
   }
 
   try {
-    const decoded = jwt.decode(token) as any;
-    req.user = decoded;
+    const decoded = jwt.verify(token, config.jwtSecret);
+    const payload = decoded as {
+      id?: unknown;
+      email?: unknown;
+      role?: unknown;
+    };
+    if (
+      typeof decoded !== "object" ||
+      !payload.id ||
+      !payload.email ||
+      !payload.role
+    ) {
+      throw new Error("invalid session payload");
+    }
+    req.user = {
+      id: String(payload.id),
+      email: String(payload.email),
+      role: String(payload.role),
+    };
     return next();
   } catch (err) {
     return res.status(401).json({ error: "invalid session" });
@@ -46,6 +56,9 @@ export function requireAuth(
 export function requireRole(role: string) {
   return (req: AuthedRequest, res: Response, next: NextFunction) => {
     if (!req.user) return res.status(401).json({ error: "unauthenticated" });
+    if (req.user.role !== role) {
+      return res.status(403).json({ error: "forbidden" });
+    }
     next();
   };
 }

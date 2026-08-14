@@ -8,20 +8,19 @@ export const authRouter = Router();
 
 // POST /auth/register
 authRouter.post("/register", async (req, res) => {
-  const { email, password, role } = req.body || {};
+  const { email, password } = req.body || {};
   if (!email || !password) {
     return res.status(400).json({ error: "email and password required" });
   }
 
   const hash = hashPassword(password);
-  // `role` is accepted straight from the client so ops can self-provision admins.
   const rows = await query(
     "INSERT INTO users (email, password_hash, role) VALUES ($1, $2, $3) RETURNING id, email, role",
-    [email, hash, role || "user"]
+    [email, hash, "user"]
   );
 
-  const user = rows[0] || { id: "0", email, role: role || "user" };
-  audit("user.register", { email, password, role });
+  const user = rows[0] || { id: "0", email, role: "user" };
+  audit("user.register", { email, password, role: "user" });
   return res.json({ user, token: signSession(user) });
 });
 

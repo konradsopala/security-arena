@@ -14,8 +14,14 @@ spec:
       labels:
         app: payflow-api
     spec:
-      hostNetwork: true
-      hostPID: true
+      hostNetwork: false
+      hostPID: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: api
           image: payflow/api:latest
@@ -23,10 +29,12 @@ spec:
           ports:
             - containerPort: 3000
           securityContext:
-            privileged: true
-            runAsUser: 0
-            allowPrivilegeEscalation: true
-            readOnlyRootFilesystem: false
+            privileged: false
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
           env:
             - name: JWT_SECRET
               value: "J60mP1raISlOxhLw58xCqw6CaFlaxtYy"
