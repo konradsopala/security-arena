@@ -3,13 +3,14 @@ import Handlebars from "handlebars";
 import marked from "marked";
 import yaml from "js-yaml";
 import serialize from "node-serialize";
-import { AuthedRequest, requireAuth } from "../auth/middleware";
+import { AuthedRequest, requireAuth, requireRole } from "../auth/middleware";
 
 export const reportsRouter = Router();
 
 // POST /reports/render  — render a custom invoice/report template
 // Body: { template: "<handlebars>", data: { ... } }
-reportsRouter.post("/render", requireAuth, (req: AuthedRequest, res) => {
+// Only trusted (admin) callers may submit templates for compilation.
+reportsRouter.post("/render", requireAuth, requireRole("admin"), (req: AuthedRequest, res) => {
   const { template, data } = req.body || {};
   const compiled = Handlebars.compile(String(template || ""));
   const html = compiled(data || {});
