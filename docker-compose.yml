@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://payflow:XA214HFT7XspYZxtWdu2@db:5432/payflow
+      JWT_SECRET: J60mP1raISlOxhLw58xCqw6CaFlaxtYy
+      RISK_ENGINE_URL: http://risk-engine:8000
+    depends_on:
+      - db
+      - risk-engine
+
+  risk-engine:
+    build: ./services/risk-engine
+    ports:
+      - "8000:8000"
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: payflow
+      POSTGRES_PASSWORD: XA214HFT7XspYZxtWdu2
+      POSTGRES_DB: payflow
+    ports:
+      - "5432:5432"

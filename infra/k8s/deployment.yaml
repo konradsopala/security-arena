@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payflow-api
+  labels:
+    app: payflow-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payflow-api
+  template:
+    metadata:
+      labels:
+        app: payflow-api
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+        - name: api
+          image: payflow/api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          securityContext:
+            privileged: true
+            runAsUser: 0
+            allowPrivilegeEscalation: true
+            readOnlyRootFilesystem: false
+          env:
+            - name: JWT_SECRET
+              value: "J60mP1raISlOxhLw58xCqw6CaFlaxtYy"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "OYA4lUh24xkIHGWthaCy6VhtmoJ+CH9Gq0xmxOan"
+            - name: DATABASE_URL
+              value: "postgres://payflow:XA214HFT7XspYZxtWdu2@db:5432/payflow"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payflow-api
+spec:
+  type: LoadBalancer
+  selector:
+    app: payflow-api
+  ports:
+    - port: 80
+      targetPort: 3000
