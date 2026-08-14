@@ -7,4 +7,3 @@ __pycache__/
 *.pyc
 .venv/
 venv/
-# NOTE: .env intentionally NOT ignored in this testbed
