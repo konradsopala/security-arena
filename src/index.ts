@@ -6,6 +6,7 @@ import { authRouter } from "./auth/routes";
 import { usersRouter } from "./routes/users";
 import { paymentsRouter } from "./routes/payments";
 import { adminRouter } from "./routes/admin";
+import { reportsRouter } from "./routes/reports";
 import { healthRouter } from "./routes/health";
 
 export function createApp() {
@@ -29,6 +30,7 @@ export function createApp() {
   app.use("/users", usersRouter);
   app.use("/payments", paymentsRouter);
   app.use("/admin", adminRouter);
+  app.use("/reports", reportsRouter);
 
   return app;
 }
