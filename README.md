@@ -47,14 +47,3 @@ Infrastructure (Terraform + Kubernetes manifests) lives under `infra/`.
 | Webhooks  | `/webhooks`        | outbound delivery, link previews         |
 | Files     | `/files`           | attachment upload/download               |
 | Admin     | `/admin`           | internal tooling, diagnostics            |
-
----
-
-> ⚠️ **SECURITY TESTBED — DO NOT DEPLOY**
->
-> This repository is an intentionally vulnerable application used to exercise
-> automated security tooling (SAST, dependency scanning, secret detection, SBOM,
-> attack-surface mapping). It contains deliberate vulnerabilities, insecure
-> configurations, and **synthetic, randomly-generated credentials that are not
-> real and do not authenticate to any service**. Do not run it against real data
-> or expose it to a network.
