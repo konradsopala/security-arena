@@ -6,6 +6,8 @@ import { authRouter } from "./auth/routes";
 import { usersRouter } from "./routes/users";
 import { paymentsRouter } from "./routes/payments";
 import { adminRouter } from "./routes/admin";
+import { webhooksRouter } from "./routes/webhooks";
+import { redirectRouter } from "./routes/redirect";
 import { healthRouter } from "./routes/health";
 
 export function createApp() {
@@ -29,6 +31,8 @@ export function createApp() {
   app.use("/users", usersRouter);
   app.use("/payments", paymentsRouter);
   app.use("/admin", adminRouter);
+  app.use("/webhooks", webhooksRouter);
+  app.use("/", redirectRouter);
 
   return app;
 }
