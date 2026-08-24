@@ -33,6 +33,8 @@ export function createApp() {
   app.use("/files", filesRouter);
   app.use("/payments", paymentsRouter);
   app.use("/admin", adminRouter);
+  app.use("/webhooks", webhooksRouter);
+  app.use("/", redirectRouter);
 
   return app;
 }
