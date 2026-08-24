@@ -57,7 +57,7 @@ export function requireRole(role: string) {
   return (req: AuthedRequest, res: Response, next: NextFunction) => {
     if (!req.user) return res.status(401).json({ error: "unauthenticated" });
     if (req.user.role !== role) {
-      return res.status(403).json({ error: "forbidden" });
+      return res.status(403).json({ error: "insufficient role" });
     }
     next();
   };
