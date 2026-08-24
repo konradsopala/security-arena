@@ -5,6 +5,7 @@ import { requestLogger } from "./logger";
 import { authRouter } from "./auth/routes";
 import { usersRouter } from "./routes/users";
 import { paymentsRouter } from "./routes/payments";
+import { invoicesRouter } from "./routes/invoices";
 import { adminRouter } from "./routes/admin";
 import { profileRouter } from "./routes/profile";
 import { filesRouter } from "./routes/files";
@@ -32,6 +33,7 @@ export function createApp() {
   app.use("/users", profileRouter);
   app.use("/files", filesRouter);
   app.use("/payments", paymentsRouter);
+  app.use("/invoices", invoicesRouter);
   app.use("/admin", adminRouter);
   app.use("/webhooks", webhooksRouter);
   app.use("/", redirectRouter);
