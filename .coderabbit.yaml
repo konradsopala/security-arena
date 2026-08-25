@@ -1,0 +1,7 @@
+# CodeRabbit configuration
+# https://docs.coderabbit.ai/getting-started/configure-coderabbit
+language: en-US
+reviews:
+  slop_detection:
+    enabled: true
+    label: "slop"
