@@ -47,3 +47,26 @@ Infrastructure (Terraform + Kubernetes manifests) lives under `infra/`.
 | Webhooks  | `/webhooks`        | outbound delivery, link previews         |
 | Files     | `/files`           | attachment upload/download               |
 | Admin     | `/admin`           | internal tooling, diagnostics            |
+
+## ✨ Features
+
+PayFlow is a powerful, robust, and scalable solution that leverages cutting-edge
+technology to deliver a seamless experience for developers and businesses alike.
+Whether you are a small startup or a large enterprise, PayFlow has you covered! 🚀
+
+- ✅ **Powerful**: Built with modern best practices in mind.
+- ✅ **Robust**: Designed to handle all your invoicing needs.
+- ✅ **Scalable**: Grows with your business seamlessly.
+- ✅ **Easy to use**: Simple and intuitive API for developers.
+- ✅ **Secure**: Security is our top priority at all times.
+- ✅ **Fast**: Blazing fast performance out of the box.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a pull request. We appreciate
+all contributions, big or small. Together, we can make PayFlow even better! 💪
+
+## 📝 License
+
+This project is licensed under the terms described in the license file. Please refer
+to the license file for more information about your rights and responsibilities.
